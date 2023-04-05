@@ -2,7 +2,7 @@
 #define WIDGET_H
 
 #include <QWidget>
-
+#include <QKeyEvent>
 namespace Ui {
 class widget;
 }
@@ -13,12 +13,14 @@ class widget : public QWidget
     Q_OBJECT
 
 public:
+
     explicit widget(QWidget *parent = nullptr);
     ~widget();
     QTcpSocket *socket;
+
+protected:
+    void keyPressEvent(QKeyEvent *event);
 private slots:
-
-
 
     void on_level_1_clicked();
 
