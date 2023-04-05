@@ -24,6 +24,7 @@ void widget::keyPressEvent(QKeyEvent *event){
         message=text;
         qDebug()<<text;
         ui->label->setText(message);
+        socket->write(message.toUtf8());
 
     }
 }
@@ -33,7 +34,7 @@ void widget::on_level_1_clicked()
         flag=true;
         message="1";
         socket->write(message.toUtf8());
-        this->setWindowOpacity(0.0);
+
     }
 }
 
@@ -44,7 +45,7 @@ void widget::on_level_2_clicked()
         flag=true;
         message="2";
         socket->write(message.toUtf8());
-        this->setWindowOpacity(0.0);
+
     }
 }
 void widget::on_level_3_clicked()
@@ -52,8 +53,7 @@ void widget::on_level_3_clicked()
     if(!flag){
         flag=true;
         message="3";
-        socket->write(message.toUtf8());
-        this->setWindowOpacity(0.0);
+
     }
 }
 
