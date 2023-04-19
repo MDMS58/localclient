@@ -10,11 +10,9 @@ CONFIG += c++11
 
 SOURCES += \
     main.cpp \
-    serial.cpp \
     widget.cpp
 
 HEADERS += \
-    serial.h \
     widget.h
 
 FORMS += \

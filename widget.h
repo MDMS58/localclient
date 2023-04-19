@@ -28,8 +28,6 @@ private slots:
 
     void on_level_3_clicked();
 
-    void serialCom();
-
 private:
     Ui::widget *ui;
 };
