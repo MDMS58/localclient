@@ -5,7 +5,7 @@
 #include <string>
 #include <iostream>
 #include <stdlib.h>
-#include <QTimer>
+#include <Qtimer>
 
 QString message="";
 bool flag=false;
@@ -78,19 +78,7 @@ void widget::serialCom() {
             charArray[in.size()] = '\n';
 
             controller.writeSerialPort(charArray, MAX_DATA_LENGTH);
-            QVariant data=controller.readSerialPort(out, MAX_DATA_LENGTH);
-            if(data=="W" ){
-                message="W";
-
-                ui->label->setText(message);
-                socket->write(message.toUtf8());
-            }
-            if(data=="S" ){
-                message="W";
-
-                ui->label->setText(message);
-                socket->write(message.toUtf8());
-            }
+            qDebug()<<controller.readSerialPort(out, MAX_DATA_LENGTH);
 
         } else {
             std::cout<<"no conncection ";
