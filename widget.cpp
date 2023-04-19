@@ -10,7 +10,7 @@
 QString message="";
 bool flag=false;
 
-char *port = "\\\\.\\COM3";
+char *port = "\\\\.\\COM6";
 char inc[MAX_DATA_LENGTH];
 char out[MAX_DATA_LENGTH];
 SerialPort controller(port);
@@ -81,9 +81,9 @@ void widget::serialCom() {
             qDebug()<<controller.readSerialPort(out, MAX_DATA_LENGTH);
 
         } else {
-            std::cout<<"no conncection";
+            std::cout<<"no conncection ";
         }
     });
-    timer->start(1);
+    timer->start(100);
 }
 
