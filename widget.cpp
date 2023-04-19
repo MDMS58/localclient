@@ -1,8 +1,20 @@
 #include "widget.h"
 #include "ui_widget.h"
+#include "serial.h"
 #include <QtNetwork/QTcpSocket>
+#include <string>
+#include <iostream>
+#include <stdlib.h>
+#include <Qtimer>
+
 QString message="";
 bool flag=false;
+
+char *port = "\\\\.\\COM3";
+char inc[MAX_DATA_LENGTH];
+char out[MAX_DATA_LENGTH];
+SerialPort controller(port);
+
 widget::widget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::widget)
@@ -10,22 +22,21 @@ widget::widget(QWidget *parent) :
     ui->setupUi(this);
     socket=new QTcpSocket;
     socket->connectToHost("localhost", 1400);
-
-
 }
+
 widget::~widget()
 {
     delete ui;
 }
 
+
 void widget::keyPressEvent(QKeyEvent *event){
-    char text=event->key();
+    char text = event->key();
     if(flag){
         message=text;
         qDebug()<<text;
         ui->label->setText(message);
         socket->write(message.toUtf8());
-
     }
 }
 void widget::on_level_1_clicked()
@@ -55,5 +66,24 @@ void widget::on_level_3_clicked()
         message="3";
 
     }
+}
+void widget::serialCom() {
+    QTimer *timer = new QTimer();
+    QObject::connect(timer, &QTimer::timeout, [=]() {
+        if (controller.isConnected()) {
+            std::string in;
+            std::cin>>in;
+            char *charArray = new char[in.size() + 1];
+            copy(in.begin(), in.end(), charArray);
+            charArray[in.size()] = '\n';
+
+            controller.writeSerialPort(charArray, MAX_DATA_LENGTH);
+            controller.readSerialPort(out, MAX_DATA_LENGTH);
+
+        } else {
+            std::cout<<"no conncection";
+        }
+    });
+    timer->start(100);
 }
 
