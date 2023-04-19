@@ -18,8 +18,6 @@ public:
     ~widget();
     QTcpSocket *socket;
 
-    void serialCom();
-
 protected:
     void keyPressEvent(QKeyEvent *event);
 private slots:
@@ -29,6 +27,8 @@ private slots:
     void on_level_2_clicked();
 
     void on_level_3_clicked();
+
+    void serialCom();
 
 private:
     Ui::widget *ui;

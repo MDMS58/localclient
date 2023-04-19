@@ -78,12 +78,12 @@ void widget::serialCom() {
             charArray[in.size()] = '\n';
 
             controller.writeSerialPort(charArray, MAX_DATA_LENGTH);
-            qDebug()<<controller.readSerialPort(out, MAX_DATA_LENGTH);
+            controller.readSerialPort(out, MAX_DATA_LENGTH);
 
         } else {
             std::cout<<"no conncection";
         }
     });
-    timer->start(1);
+    timer->start(100);
 }
 
